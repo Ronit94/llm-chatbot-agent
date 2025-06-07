@@ -1,0 +1,15 @@
+2025-06-07 00:30:28,324 INFO Streamlit app started successfully
+2025-06-07 00:40:38,417 INFO Streamlit app started successfully
+2025-06-07 00:40:48,922 INFO Streamlit app started successfully
+2025-06-07 00:46:59,519 INFO Streamlit app started successfully
+2025-06-07 00:47:04,275 INFO Streamlit app started successfully
+2025-06-07 00:47:04,966 INFO Streamlit app started successfully
+2025-06-07 00:47:05,306 INFO Streamlit app started successfully
+2025-06-07 00:47:57,240 INFO Streamlit app started successfully
+2025-06-07 00:48:03,458 INFO Streamlit app started successfully
+2025-06-07 00:48:04,447 INFO Streamlit app started successfully
+2025-06-07 00:48:04,482 ERROR Error starting Streamlit app: object dict can't be used in 'await' expression
+2025-06-07 00:48:11,736 INFO Streamlit app started successfully
+2025-06-07 00:48:12,083 ERROR Error starting Streamlit app: invalid_grant: Bad Request
+2025-06-07 00:52:51,740 ERROR Error starting Streamlit app: 'str' object has no attribute '_render_hooks'
+2025-06-07 00:52:56,000 ERROR Error starting Streamlit app: 'str' object has no attribute '_render_hooks'
