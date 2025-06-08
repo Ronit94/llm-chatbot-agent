@@ -45,7 +45,8 @@ async def main():
         saved = get_saved_session(st.session_state["user_email"])
         if saved and time.time() < saved["expires_at"]:
             user_info = saved["user_info"]
-            await streamlit_chat_interface(user_info)
+            chat_context = saved.get("chat_context", [])
+            await streamlit_chat_interface(user_info, chat_context)
         else:
             st.warning("Session expired. Please log in again.")
             del st.session_state["user_email"]

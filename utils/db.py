@@ -17,7 +17,16 @@ def save_session(email, token, user_info):
     else:
         print(f"Error saving session: {response.status_code} - {response.text}")
     
-    
+
+def add_conversation_session(email, chat_context):
+    url = f"{dba_server_base_url}/db/add-conversation-session"
+    response = requests.post(url, json={
+        "email": email,
+        "chat_context": chat_context})
+    if response.status_code == 200:
+        print("Conversation session added successfully.")
+    else:
+        print(f"Error adding conversation session: {response.status_code} - {response.text}")    
         
 
 

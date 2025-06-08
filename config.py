@@ -11,5 +11,6 @@ pin_cone_api_key = st.secrets["PINCONE_API_KEY"]
 index_name = st.secrets["PINECONE_INDEX_NAME"]
 anthropic_api_key = st.secrets["ANTROPIC_API_KEY"]
 dba_server_base_url = st.secrets["DBA_SERVER_BASE_URL"]
+max_chat_history_length = st.secrets["MAX_CHAT_HISTORY_LENGTH"]
 # Google OAuth 2.0 configuration
 

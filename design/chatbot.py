@@ -3,7 +3,9 @@ import time
 import random
 import os
 from pymongo import MongoClient
-
+from utils.chat_conversation import chat_session
+from utils.db import add_conversation_session
+from config import max_chat_history_length
 
 # Streamed response emulator
 async def response_generator():
@@ -32,7 +34,7 @@ async def save_uploaded_file_locally(uploaded_file, folder="uploads"):
         f.write(uploaded_file.getbuffer())
     return file_path
 
-async def streamlit_chat_interface(user_info):
+async def streamlit_chat_interface(user_info, chat_context):
     if "chat_history" not in st.session_state:
        st.session_state.chat_history = []
     if "file_text" not in st.session_state:
@@ -111,21 +113,34 @@ async def streamlit_chat_interface(user_info):
             st.success("✅ Embeddings created and uploaded to Pinecone!")
     # --- Display Preview ---
     if "file_text" in st.session_state:
-
-        # --- Chat Interface ---
-        st.subheader("💬 lets ask the bot now")
-        user_input = st.chat_input("Ask something about the file...")
-
-        if user_input:
-            # 🔁 Simple mock response (replace with real LLM logic)
-            response = f"I received your question: '{user_input}'.\n\nUnfortunately, I am just a demo bot right now 😅"
-
-            # Append to chat history
-            if "chat_history" not in st.session_state:
-                st.session_state.chat_history = []
+        print(len(chat_context))
+        if len(chat_context) > max_chat_history_length:
+            # st.session_state.file_text = st.session_state.file_text[:max_chat_history_length] + "..."
+            st.error("you have reached the maximum chat history length, please login to a different account to continue chatting")
+        
+        else :# --- Chat Interface ---
+            st.subheader("💬 lets ask the bot now")
+            user_input = st.chat_input("Type your question here")
+            session_id = user_info.get("sub", "session_123")
+            if user_input:
+                # 🔁 Simple mock response (replace with real LLM logic)
+                llm_response = chat_session(session_id= session_id,
+                            input_text=user_input,
+                            user_info={"email": user_info.get("email", "Guest")})
                 
-            st.session_state.chat_history.append(("user", user_input))
-            st.session_state.chat_history.append(("bot", response))
+                if llm_response:
+                    response = llm_response.get("response", "Sorry, I couldn't process your request.")
+
+                # Append to chat history
+                if "chat_history" not in st.session_state:
+                    st.session_state.chat_history = []
+                    
+                st.session_state.chat_history.append(("user", user_input))
+                st.session_state.chat_history.append(("bot", response))
+                
+                obj = {"question": user_input, "answer": response}
+                
+                add_conversation_session(email=user_info.get("email", "Guest"), chat_context=obj)
 
         # --- Display Chat ---
         if "chat_history" in st.session_state:
