@@ -52,35 +52,35 @@ async def streamlit_chat_interface(user_info, chat_context):
             st.session_state.clear()
             st.rerun()
         
-        if "OPENAI_API_KEY" not in os.environ:
-            default_openai_api_key = os.getenv("OPENAI_API_KEY") if os.getenv("OPENAI_API_KEY") is not None else ""  # only for development environment, otherwise it should return None
-            with st.popover("🔐 OpenAI"):
-                openai_api_key = st.text_input(
-                    "Introduce your OpenAI API Key (https://platform.openai.com/)", 
-                    value=default_openai_api_key, 
-                    type="password",
-                    key="openai_api_key",
-                )
-            default_groq_api_key = os.getenv("GROQ_API_KEY") if os.getenv("GROQ_API_KEY") is not None else ""  # only for development environment, otherwise it should return None
-            with st.popover("🔐 Groq"):
-                groq_api_key = st.text_input(
-                    "Introduce your Groq API Key (https://console.groq.com/)", 
-                    value=default_groq_api_key, 
-                    type="password",
-                    key="groq_api_key",
-                )
-            default_anthropic_api_key = os.getenv("ANTROPIC_API_KEY") if os.getenv("ANTROPIC_API_KEY") is not None else "" 
-            with st.popover("🔐 Anthropic"):
-                anthropic_api_key = st.text_input(
-                    "Introduce your Anthropic API Key (https://console.anthropic.com/)", 
-                    value=default_anthropic_api_key,
-                    type="password",
-                    key="anthropic_api_key",
-                )
+        # if "OPENAI_API_KEY" not in os.environ:
+        #     default_openai_api_key = os.getenv("OPENAI_API_KEY") if os.getenv("OPENAI_API_KEY") is not None else ""  # only for development environment, otherwise it should return None
+        #     with st.popover("🔐 OpenAI"):
+        #         openai_api_key = st.text_input(
+        #             "Introduce your OpenAI API Key (https://platform.openai.com/)", 
+        #             value=default_openai_api_key, 
+        #             type="password",
+        #             key="openai_api_key",
+        #         )
+        #     default_groq_api_key = os.getenv("GROQ_API_KEY") if os.getenv("GROQ_API_KEY") is not None else ""  # only for development environment, otherwise it should return None
+        #     with st.popover("🔐 Groq"):
+        #         groq_api_key = st.text_input(
+        #             "Introduce your Groq API Key (https://console.groq.com/)", 
+        #             value=default_groq_api_key, 
+        #             type="password",
+        #             key="groq_api_key",
+        #         )
+        #     default_anthropic_api_key = os.getenv("ANTROPIC_API_KEY") if os.getenv("ANTROPIC_API_KEY") is not None else "" 
+        #     with st.popover("🔐 Anthropic"):
+        #         anthropic_api_key = st.text_input(
+        #             "Introduce your Anthropic API Key (https://console.anthropic.com/)", 
+        #             value=default_anthropic_api_key,
+        #             type="password",
+        #             key="anthropic_api_key",
+        #         )
                 
-            st.session_state["OPENAI_API_KEY"] = openai_api_key
-            st.session_state["GROQ_API_KEY"] = groq_api_key
-            st.session_state["ANTROPIC_API_KEY"] = anthropic_api_key
+        #     st.session_state["OPENAI_API_KEY"] = openai_api_key
+        #     st.session_state["GROQ_API_KEY"] = groq_api_key
+        #     st.session_state["ANTROPIC_API_KEY"] = anthropic_api_key
             
     st.sidebar.header("📎 Upload Document")
     uploaded_file = st.sidebar.file_uploader("Upload PDF or Word file", type=["pdf", "docx"])
